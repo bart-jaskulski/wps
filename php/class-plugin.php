@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Rarst\wps;
 
 use Rarst\wps\Vendor\Pimple\Container;
@@ -15,21 +16,20 @@ class Plugin extends Container {
 	/**
 	 * @param array $values Optional arguments for container.
 	 */
-	public function __construct( $values = array() ) {
+	public function __construct( array $values = [] ) {
 
-		$defaults = array();
+		$defaults = [];
 
-		$defaults['tables'] = array(
+		$defaults['tables'] = [
 			'$wp'       => function () {
 				global $wp;
 
 				if ( ! $wp instanceof \WP ) {
-					return array();
+					return [];
 				}
 
 				$output = get_object_vars( $wp );
-				unset( $output['private_query_vars'] );
-				unset( $output['public_query_vars'] );
+				unset( $output['private_query_vars'], $output['public_query_vars'] );
 
 				return array_filter( $output );
 			},
@@ -37,13 +37,12 @@ class Plugin extends Container {
 				global $wp_query;
 
 				if ( ! $wp_query instanceof \WP_Query ) {
-					return array();
+					return [];
 				}
 
 				$output               = get_object_vars( $wp_query );
 				$output['query_vars'] = array_filter( $output['query_vars'] );
-				unset( $output['posts'] );
-				unset( $output['post'] );
+				unset( $output['posts'], $output['post'] );
 
 				return array_filter( $output );
 			},
@@ -51,14 +50,14 @@ class Plugin extends Container {
 				$post = get_post();
 
 				if ( ! $post instanceof \WP_Post ) {
-					return array();
+					return [];
 				}
 
 				return get_object_vars( $post );
 			},
-		);
+		];
 
-		$defaults['handler.pretty'] = function ( $plugin ) {
+		$defaults['handler.pretty'] = static function ( $plugin ) {
 			$handler = new PrettyPageHandler();
 
 			foreach ( $plugin['tables'] as $name => $callback ) {
@@ -71,25 +70,25 @@ class Plugin extends Container {
 			return $handler;
 		};
 
-		$defaults['handler.json'] = function () {
+		$defaults['handler.json'] = static function () {
 			$handler = new Admin_Ajax_Handler();
 			$handler->addTraceToOutput( true );
 
 			return $handler;
 		};
 
-		$defaults['handler.rest'] = function () {
+		$defaults['handler.rest'] = static function () {
 			$handler = new Rest_Api_Handler();
 			$handler->addTraceToOutput( true );
 
 			return $handler;
 		};
 
-		$defaults['handler.text'] = function () {
+		$defaults['handler.text'] = static function () {
 			return new PlainTextHandler();
 		};
 
-		$defaults['run'] = function ( $plugin ) {
+		$defaults['run'] = static function ( $plugin ) {
 			$run = new Run();
 			$run->pushHandler( $plugin['handler.pretty'] );
 			$run->pushHandler( $plugin['handler.json'] );
@@ -105,27 +104,18 @@ class Plugin extends Container {
 		parent::__construct( array_merge( $defaults, $values ) );
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function is_debug() {
-
+	public function is_debug(): bool {
 		return defined( 'WP_DEBUG' ) && WP_DEBUG;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function is_debug_display() {
-
+	public function is_debug_display(): bool {
 		return defined( 'WP_DEBUG_DISPLAY' ) && false !== WP_DEBUG_DISPLAY;
 	}
 
 	/**
 	 * Execute run conditionally on debug configuration.
 	 */
-	public function run() {
-
+	public function run(): void {
 		if ( ! $this->is_debug() || ! $this->is_debug_display() ) {
 			return;
 		}

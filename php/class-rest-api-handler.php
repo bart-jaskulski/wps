@@ -1,4 +1,5 @@
-<?php
+<?php declare( strict_types=1 );
+
 namespace Rarst\wps;
 
 use Rarst\wps\Vendor\Whoops\Exception\Formatter;
@@ -11,11 +12,7 @@ use Rarst\wps\Vendor\Whoops\Util\Misc;
  */
 class Rest_Api_Handler extends JsonResponseHandler {
 
-	/**
-	 * @return bool
-	 */
-	private function isRestRequest() {
-
+	private function isRestRequest(): bool {
 		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 			return true;
 		}
@@ -28,28 +25,24 @@ class Rest_Api_Handler extends JsonResponseHandler {
 		return false;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function handle() {
-
+	public function handle(): int {
 		if ( ! $this->isRestRequest() ) {
 			return Handler::DONE;
 		}
 
 		$data     = Formatter::formatExceptionAsDataArray( $this->getInspector(), $this->addTraceToOutput() );
-		$response = array(
+		$response = [
 			'code'    => $data['type'],
 			'message' => $data['message'],
 			'data'    => $data,
-		);
+		];
 
 		if ( Misc::canSendHeaders() ) {
 			status_header( 500 );
 			header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
 		}
 
-		echo wp_json_encode( $response, JSON_PRETTY_PRINT );
+		echo wp_json_encode( $response, \JSON_PRETTY_PRINT );
 
 		return Handler::QUIT;
 	}
