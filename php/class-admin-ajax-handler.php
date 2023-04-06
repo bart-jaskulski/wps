@@ -1,10 +1,10 @@
 <?php
 namespace Rarst\wps;
 
-use Whoops\Exception\Formatter;
-use Whoops\Handler\Handler;
-use Whoops\Handler\JsonResponseHandler;
-use Whoops\Util\Misc;
+use Rarst\wps\Vendor\Whoops\Exception\Formatter;
+use Rarst\wps\Vendor\Whoops\Handler\Handler;
+use Rarst\wps\Vendor\Whoops\Handler\JsonResponseHandler;
+use Rarst\wps\Vendor\Whoops\Util\Misc;
 
 /**
  * WordPress-specific version of Json handler.

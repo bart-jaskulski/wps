@@ -1,10 +1,11 @@
 <?php
 namespace Rarst\wps;
 
-use Pimple\Container;
-use Whoops\Handler\PlainTextHandler;
-use Whoops\Handler\PrettyPageHandler;
-use Whoops\Run;
+use Rarst\wps\Vendor\Pimple\Container;
+use Rarst\wps\Vendor\Whoops\Handler\PlainTextHandler;
+use Rarst\wps\Vendor\Whoops\Handler\PrettyPageHandler;
+use Rarst\wps\Vendor\Whoops\Run;
+use Rarst\wps\Vendor\Whoops\Util\Misc;
 
 /**
  * Main plugin's class.
@@ -94,7 +95,7 @@ class Plugin extends Container {
 			$run->pushHandler( $plugin['handler.json'] );
 			$run->pushHandler( $plugin['handler.rest'] );
 
-			if ( \Whoops\Util\Misc::isCommandLine() ) {
+			if ( Misc::isCommandLine() ) {
 				$run->pushHandler( $plugin['handler.text'] );
 			}
 
