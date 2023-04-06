@@ -5,6 +5,11 @@ This change log adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ## Unreleased
 
+### Changed
+- plugin requires at least PHP 7.2
+- vendor libraries are now prefixed to avoid version collision
+- updated dependencies (whoops 2.15.1, Pimple 3.5.0)
+
 ## 1.2 - 2018-12-18
 
 ### Added
