@@ -5,10 +5,21 @@ This change log adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
 ## Unreleased
 
+### Added
+- hook `wps/loaded`, which allows to add silenced error paths
+- `$wp_current_filters` and admin `$current_screen` data to error output
+- `symfony/var-dumper` for pretty-print of objects in data table
+
 ### Changed
+- general plugin rewrite
+- removed global access to plugin instance
+- marked everything from WP_CONTENT_DIR as application code to filter it from WordPress' stack trace
 - plugin requires at least PHP 7.2
 - vendor libraries are now prefixed to avoid version collision
 - updated dependencies (whoops 2.15.1, Pimple 3.5.0)
+
+### Fixed
+- line highlighting, which is currently not working in filp/whoops. See: https://github.com/filp/whoops/issues/747
 
 ## 1.2 - 2018-12-18
 

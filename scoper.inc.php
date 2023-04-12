@@ -52,7 +52,13 @@ return [
                 'Tests',
                 'vendor-bin',
             ])
-            ->in(['vendor/filp', 'vendor/pimple', 'vendor/psr']),
+            ->in([
+              'vendor/filp',
+              'vendor/pimple',
+              'vendor/psr',
+              'vendor/symfony/var-dumper',
+              'vendor/symfony/polyfill-mbstring'
+            ]),
     ],
 
     // List of excluded files, i.e. files for which the content will be left untouched.

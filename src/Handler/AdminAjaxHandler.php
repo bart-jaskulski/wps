@@ -1,6 +1,6 @@
-<?php declare(strict_types=1);
+<?php declare( strict_types=1 );
 
-namespace Rarst\wps;
+namespace Rarst\wps\Handler;
 
 use Rarst\wps\Vendor\Whoops\Exception\Formatter;
 use Rarst\wps\Vendor\Whoops\Handler\Handler;
@@ -10,10 +10,10 @@ use Rarst\wps\Vendor\Whoops\Util\Misc;
 /**
  * WordPress-specific version of Json handler.
  */
-class Admin_Ajax_Handler extends JsonResponseHandler {
+class AdminAjaxHandler extends JsonResponseHandler {
 
 	private function isAjaxRequest(): bool {
-		return defined( 'DOING_AJAX' ) && DOING_AJAX;
+		return wp_doing_ajax();
 	}
 
 	public function handle(): int {

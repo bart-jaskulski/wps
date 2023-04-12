@@ -1,6 +1,6 @@
 <?php declare( strict_types=1 );
 
-namespace Rarst\wps;
+namespace Rarst\wps\Handler;
 
 use Rarst\wps\Vendor\Whoops\Exception\Formatter;
 use Rarst\wps\Vendor\Whoops\Handler\Handler;
@@ -10,7 +10,7 @@ use Rarst\wps\Vendor\Whoops\Util\Misc;
 /**
  * WordPress-specific version of Json handler for REST API.
  */
-class Rest_Api_Handler extends JsonResponseHandler {
+class RestApiHandler extends JsonResponseHandler {
 
 	private function isRestRequest(): bool {
 		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {

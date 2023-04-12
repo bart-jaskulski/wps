@@ -5,6 +5,8 @@
 [![PHP version](https://img.shields.io/packagist/php-v/rarst/wps.svg)](https://packagist.org/packages/rarst/wps)
 [![Download wps](https://img.shields.io/badge/download-wps.zip-blue)](https://github.com/Rarst/wps/releases/latest/download/wps.zip)
 
+This library is a fork of [Rarst/wps](https://github.com/Rarst/wps) with changes to plugin architecture and additional functionalities.
+
 wps adds [whoops](http://filp.github.io/whoops/) error handler to a WordPress installation. 
 
 It makes error messages from PHP, `admin-ajax.php`, and WP REST API a _great_ deal more clear and convenient to work with.
@@ -38,21 +40,27 @@ This can be called multiple times and/or array of paths can be provided.
 Note that the direction of slashes needs to match operating system or write your regexes to match either.
 
 ```php
-global $wps;
+add_action(
+    'wps/loaded',
+     function ( \Rarst\Wps\Handler\Plugin $wps ) {
+        // Silence notices and warnings for any path. 
+        $wps->silence_errors( '~.*~', E_NOTICE | E_WARNING );
 
-// Silence notices and warnings for any path. 
-$wps['run']->silenceErrorsInPaths( '~.*~', E_NOTICE | E_WARNING );
+        // Silence for specific directory.
+        $wps->silence_errors( '~/wp-admin/~', E_NOTICE | E_WARNING );
 
-// Silence for specific directory.
-$wps['run']->silenceErrorsInPaths( '~/wp-admin/~', E_NOTICE | E_WARNING );
+        // Silence _except_ specific directory.
+        $wps->silence_errors( '~^((?!/my-plugin/).)*$~', E_NOTICE | E_WARNING );
 
-// Silence _except_ specific directory.
-$wps['run']->silenceErrorsInPaths( '~^((?!/my-plugin/).)*$~', E_NOTICE | E_WARNING );
-
-// Silence for plugins _except_ specific plugin.
-$wps['run']->silenceErrorsInPaths( '~/wp-content/plugins/(?!my-plugin)~', E_NOTICE | E_WARNING );
+        // Silence for plugins _except_ specific plugin.
+        $wps->silence_errors( '~/wp-content/plugins/(?!my-plugin)~', E_NOTICE | E_WARNING );
+    }
+);
 ```
+## Roadmap
 
+- Add admin settings to silence errors, to allow dynamic changes in settings without code modification.
+- Create minimal WP CLI command, which will allow to set silenced paths.
 
 ## License
 
