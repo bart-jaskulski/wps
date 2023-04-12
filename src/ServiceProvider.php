@@ -62,9 +62,9 @@ class ServiceProvider implements Vendor\Pimple\ServiceProviderInterface {
 			$whoops = new Run();
 			// TODO: register only if we are in required context. Handler don't have to know if
 			// it's currently able to handle the exception.
+			$whoops->pushHandler( $c[ PrettyPageHandler::class ] );
 			$whoops->pushHandler( $c[ AdminAjaxHandler::class ] );
 			$whoops->pushHandler( $c[ RestApiHandler::class ] );
-			$whoops->pushHandler( $c[ PrettyPageHandler::class ] );
 
 			if ( Misc::isCommandLine() ) {
 				$whoops->pushHandler( new PlainTextHandler() );
