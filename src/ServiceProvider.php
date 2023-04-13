@@ -43,9 +43,6 @@ class ServiceProvider implements Vendor\Pimple\ServiceProviderInterface {
 			// behavior should be flexible, so we are going to make it configurable.
 			$handler->setApplicationPaths( [ \WP_CONTENT_DIR ] );
 
-			// We are adding our own resources as a workaround, until following lands: https://github.com/filp/whoops/pull/756
-			$handler->addResourcePath( __DIR__ . '/Resources' );
-
 			/** @var Provider $provider */
 			foreach ( $providers as $provider ) {
 				$handler->addDataTableCallback( $provider->get_name(), [ $provider, 'get_data' ] );

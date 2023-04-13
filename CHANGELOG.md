@@ -16,10 +16,10 @@ This change log adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 - marked everything from WP_CONTENT_DIR as application code to filter it from WordPress' stack trace
 - plugin requires at least PHP 7.2
 - vendor libraries are now prefixed to avoid version collision
-- updated dependencies (whoops 2.15.1, Pimple 3.5.0)
+- updated dependencies (whoops 2.15.2, Pimple 3.5.0)
 
 ### Fixed
-- line highlighting, which is currently not working in filp/whoops. See: https://github.com/filp/whoops/issues/747
+- line highlighting from upstream bug in filp/whoops
 
 ## 1.2 - 2018-12-18
 
