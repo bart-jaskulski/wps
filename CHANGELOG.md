@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 This change log adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 
-## Unreleased
+## 2.0.0 - 2023-05-15
 
 ### Added
 - hook `wps/loaded`, which allows to add silenced error paths
@@ -13,7 +13,7 @@ This change log adheres to [Keep a CHANGELOG](http://keepachangelog.com/).
 ### Changed
 - general plugin rewrite
 - removed global access to plugin instance
-- marked everything from WP_CONTENT_DIR as application code to filter it from WordPress' stack trace
+- marked everything from `WP_CONTENT_DIR` as application code to filter it from WordPress' stack trace
 - plugin requires at least PHP 7.2
 - vendor libraries are now prefixed to avoid version collision
 - updated dependencies (whoops 2.15.2, Pimple 3.5.0)
