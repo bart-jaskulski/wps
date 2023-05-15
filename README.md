@@ -1,9 +1,4 @@
 # wps — WordPress plugin for whoops
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Rarst/wps/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Rarst/wps/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/rarst/wps/v/stable)](https://packagist.org/packages/rarst/wps)
-[![Total Downloads](https://poser.pugx.org/rarst/wps/downloads)](https://packagist.org/packages/rarst/wps)
-[![PHP version](https://img.shields.io/packagist/php-v/rarst/wps.svg)](https://packagist.org/packages/rarst/wps)
-[![Download wps](https://img.shields.io/badge/download-wps.zip-blue)](https://github.com/Rarst/wps/releases/latest/download/wps.zip)
 
 This library is a fork of [Rarst/wps](https://github.com/Rarst/wps) with changes to plugin architecture and additional functionalities.
 
@@ -13,9 +8,7 @@ It makes error messages from PHP, `admin-ajax.php`, and WP REST API a _great_ de
 
 ## Installation
 
-| [Composer](https://getcomposer.org/) (recommended) | Release archive |  
-| -------------------------------------------------- | -------- |  
-| `composer require rarst/wps` | [![Download wps](https://img.shields.io/badge/download-wps.zip-blue?style=for-the-badge)](https://github.com/Rarst/wps/releases/latest/download/wps.zip) |
+[![Download wps](https://img.shields.io/badge/download-wps.zip-blue?style=for-the-badge)](https://github.com/bart-jaskulski/wps/releases/latest/download/wps.zip) |
 
 ## Usage
 
@@ -29,7 +22,7 @@ Silence errors for irrelevant locations to keep it practical and productive.
 
 ### Silence for URL
 
-Use `?wps_disable` query argument in the URL to temporarily disable whoops. 
+Use `?wps_disable` query argument in the URL to temporarily disable whoops.
 
 ### Silence for path
 
@@ -42,8 +35,8 @@ Note that the direction of slashes needs to match operating system or write your
 ```php
 add_action(
     'wps/loaded',
-     function ( \Rarst\Wps\Handler\Plugin $wps ) {
-        // Silence notices and warnings for any path. 
+     function ( \Rarst\Wps\Plugin $wps ) {
+        // Silence notices and warnings for any path.
         $wps->silence_errors( '~.*~', E_NOTICE | E_WARNING );
 
         // Silence for specific directory.
